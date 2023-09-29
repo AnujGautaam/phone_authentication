@@ -65,7 +65,7 @@ signInWithPhoneNumber(auth, phone, appVerifier)
     });
 
 }
-
+// this is a new comment after the addition of the files in the github repository 
 const verifyCode=()=>{
   // const code = "345678"
   
@@ -88,20 +88,27 @@ const verifyCode=()=>{
 <div id='sign-in-button'></div>
 
 {wait?<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px"}}>
+  {/* one of the reasons i suspect is that the button and the text fields should be handled using forms and that would ease the process  */}
 
 <Card >
 <CardContent>
   <Typography sx={{marginLeft:"90px", marginBottom:"30px"}}>Super Water Controller</Typography>
+ 
+  <form onSubmit={verifyPhone}>
  <Box sx={{display:"flex", flexDirection:"row"}}>
-
    <TextField sx={{marginLeft:"10px", width:"90px"}}variant='outlined' value={"+977"} disabled />
 <TextField sx={{marginLeft:"0px"}}variant='outlined' label="phone number" onChange={(e)=>{setPhone(`+977 ${e.target.value}`)}}/>
  </Box>
 
  
  
-<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' onClick={verifyPhone}>click here</Button>
+<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' type='submit'>click here</Button>
   
+
+
+
+  </form>
+ 
 
  
 </CardContent>
@@ -113,7 +120,10 @@ const verifyCode=()=>{
   <Card >
   <CardContent>
     <Typography sx={{marginLeft:"90px", marginBottom:"30px"}}>Super Water Controller</Typography>
-   <Box sx={{display:"flex", flexDirection:"row"}}>
+
+    <form onSubmit={verifyCode}>
+
+        <Box sx={{display:"flex", flexDirection:"row"}}>
 
      {/* <TextField sx={{marginLeft:"10px", width:"90px"}}variant='outlined' value={"+977"} disabled /> */}
  <TextField sx={{marginLeft:"90px"}}variant='outlined' label="OTP" onChange={(e)=>{setCode(e.target.value)}}/>
@@ -121,8 +131,10 @@ const verifyCode=()=>{
 
    
    
-<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' onClick={verifyPhone}>Verify OTP</Button>
+<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' type='submit'>Verify OTP</Button>
     
+    </form>
+ 
 
    
   </CardContent>
