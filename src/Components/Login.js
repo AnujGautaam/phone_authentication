@@ -1,0 +1,150 @@
+// this is for the loggin in of the user in the application and this is going to work for sure this time 
+// import logo from './logo.svg';
+// import './App.css';
+import { Box, Button, Card, CardContent, TextField, Typography } from '@mui/material';
+import { auth } from '../firebase.config';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { useState } from 'react';
+
+const Login=()=> {
+const [phone, setPhone] = useState("0000000000")
+const [code, setCode] = useState("123456")
+
+
+
+
+const [wait, setWait] = useState(true)
+
+
+
+
+
+
+
+const getRecaptcha=()=>{
+  // const auth = getAuth();
+  if(!window.recaptchaVerifier){
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+  'size': 'invisible',
+  'callback': (response) => {
+    // reCAPTCHA solved, allow signInWithPhoneNumber.
+    // onSignInSubmit();
+    verifyPhone()
+    // console.log(response, "this is the response from the response")
+  }
+});
+  }
+  else{
+    alert("there seems to be some error while loading the recaptcha")
+  }
+
+}
+
+const verifyPhone = ()=>{
+
+// const phoneNumber = getPhoneNumberFromUserInput();
+// const phoneNumber = "+977 9820135187"
+console.log(phone)
+
+const appVerifier = window.recaptchaVerifier;
+getRecaptcha()
+
+// const auth = getAuth();
+signInWithPhoneNumber(auth, phone, appVerifier)
+    .then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      window.confirmationResult = confirmationResult;
+      alert(`OTP code has been sent to ${phone}`)
+      // setWait(false)
+      // ...
+    }).catch((error) => {
+      // Error; SMS not sent
+      // ...
+      console.log("this is an error", error)
+    });
+
+}
+
+const verifyCode=()=>{
+  // const code = "345678"
+  
+  window.confirmationResult.confirm(code).then((result) => {
+    // User signed in successfully.
+    const user = result.user;
+    console.log(user)
+    // ...
+  }).catch((error) => {
+    // User couldn't sign in (bad verification code?)
+    // ...
+    console.log(error, "this is the error from the code verification section")
+  });
+}
+
+
+
+  return (
+<>
+<div id='sign-in-button'></div>
+
+{wait?<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px"}}>
+
+<Card >
+<CardContent>
+  <Typography sx={{marginLeft:"90px", marginBottom:"30px"}}>Super Water Controller</Typography>
+ <Box sx={{display:"flex", flexDirection:"row"}}>
+
+   <TextField sx={{marginLeft:"10px", width:"90px"}}variant='outlined' value={"+977"} disabled />
+<TextField sx={{marginLeft:"0px"}}variant='outlined' label="phone number" onChange={(e)=>{setPhone(`+977 ${e.target.value}`)}}/>
+ </Box>
+
+ 
+ 
+<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' onClick={verifyPhone}>click here</Button>
+  
+
+ 
+</CardContent>
+</Card>
+
+</Box>:<>
+<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px"}}>
+
+  <Card >
+  <CardContent>
+    <Typography sx={{marginLeft:"90px", marginBottom:"30px"}}>Super Water Controller</Typography>
+   <Box sx={{display:"flex", flexDirection:"row"}}>
+
+     {/* <TextField sx={{marginLeft:"10px", width:"90px"}}variant='outlined' value={"+977"} disabled /> */}
+ <TextField sx={{marginLeft:"90px"}}variant='outlined' label="OTP" onChange={(e)=>{setCode(e.target.value)}}/>
+   </Box>
+
+   
+   
+<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' onClick={verifyPhone}>Verify OTP</Button>
+    
+
+   
+  </CardContent>
+</Card>
+  
+</Box>
+
+</>}
+
+
+
+
+{/* <p>first will be the firebae configuration</p> */}
+{/* <button onClick={verifyPhone}>click here for the recaptcha</button> */}
+{/* <button onClick={verifyCode}>click here for the verification of the code</button>
+ */}
+ {/* both of these functions have been duplicated in the above exammples */}
+</>
+  );
+}
+// one of the reasons why i think the code is taking time to execute is due to the fact that the buttons and the text fields are yet to be wrapped inside of a function and that might be causing some 
+export default Login;
+
+
+// the next thing is to do is to install the material ui and then handle everything accordingly 
