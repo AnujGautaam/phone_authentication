@@ -9,9 +9,10 @@ import { useState } from 'react';
 const Login=()=> {
 const [phone, setPhone] = useState("0000000000")
 const [code, setCode] = useState("123456")
+// const [loading, setLoading] = useState(false)
 
-
-
+const [visible, setVisible] = useState(false)
+// for the moment, i am going to try to let the user confirm the number and send the verification code to the number 
 
 const [wait, setWait] = useState(true)
 
@@ -40,15 +41,18 @@ const getRecaptcha=()=>{
 
 }
 
-const verifyPhone = ()=>{
+const verifyPhone = (event)=>{
+  event.preventDefault()
 
 // const phoneNumber = getPhoneNumberFromUserInput();
 // const phoneNumber = "+977 9820135187"
 console.log(phone)
 
-const appVerifier = window.recaptchaVerifier;
-getRecaptcha()
 
+getRecaptcha()
+// setVisible(true)
+setWait(false)
+const appVerifier = window.recaptchaVerifier;
 // const auth = getAuth();
 signInWithPhoneNumber(auth, phone, appVerifier)
     .then((confirmationResult) => {
@@ -66,13 +70,15 @@ signInWithPhoneNumber(auth, phone, appVerifier)
 
 }
 // this is a new comment after the addition of the files in the github repository 
-const verifyCode=()=>{
+const verifyCode=(event)=>{
   // const code = "345678"
+  event.preventDefault()
   
   window.confirmationResult.confirm(code).then((result) => {
     // User signed in successfully.
     const user = result.user;
     console.log(user)
+    alert("Congratulations!!!")
     // ...
   }).catch((error) => {
     // User couldn't sign in (bad verification code?)
@@ -101,8 +107,11 @@ const verifyCode=()=>{
  </Box>
 
  
- 
-<Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' type='submit'>click here</Button>
+ <Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' type='submit'>Verify Phone</Button>
+
+
+
+
   
 
 
