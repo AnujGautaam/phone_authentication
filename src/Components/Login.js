@@ -11,10 +11,10 @@ const [phone, setPhone] = useState("0000000000")
 const [code, setCode] = useState("123456")
 // const [loading, setLoading] = useState(false)
 
-const [visible, setVisible] = useState(false)
+const [visible, setVisible] = useState(true)
 // for the moment, i am going to try to let the user confirm the number and send the verification code to the number 
 
-const [wait, setWait] = useState(true)
+const [wait, setWait] = useState(false)
 
 
 
@@ -93,12 +93,12 @@ const verifyCode=(event)=>{
 <>
 <div id='sign-in-button'></div>
 
-{wait?<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px"}}>
+{wait?<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px", bgcolor:"#1BE7ED"}}>
   {/* one of the reasons i suspect is that the button and the text fields should be handled using forms and that would ease the process  */}
-
+  <Typography variant='h5' sx={{marginLeft:"100px", marginBottom:"30px"}}>Super Water Controller</Typography>
 <Card >
 <CardContent>
-  <Typography sx={{marginLeft:"90px", marginBottom:"30px"}}>Super Water Controller</Typography>
+  
  
   <form onSubmit={verifyPhone}>
  <Box sx={{display:"flex", flexDirection:"row"}}>
@@ -124,11 +124,12 @@ const verifyCode=(event)=>{
 </Card>
 
 </Box>:<>
-<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px"}}>
+<Box sx={{display:"flex", justifyContent:"center", flexDirection:"column", width:"450px", height:"400px", marginLeft:"400px", marginTop:"150px",  bgcolor:"#1BE7ED"}}>
+<Typography variant='h5' sx={{marginLeft:"100px", marginBottom:"30px"}}>Super Water Controller</Typography>
+
 
   <Card >
   <CardContent>
-    <Typography sx={{marginLeft:"90px", marginBottom:"30px"}}>Super Water Controller</Typography>
 
     <form onSubmit={verifyCode}>
 
@@ -141,6 +142,11 @@ const verifyCode=(event)=>{
    
    
 <Button sx={{marginLeft:"100px", width:"200px", marginTop:"30px", bgcolor:"info"}} variant='outlined' type='submit'>Verify OTP</Button>
+
+
+<Box sx={{display:"flex", flexDirection:"row", marginTop:"40px"}}><Typography  sx={{color:"info.main"}}>Did not receive the OTP?</Typography> <Button sx={{marginLeft:"10px", width:"150px", bgcolor:"info"}} variant='outlined' type='submit'>Resend OTP</Button>
+</Box>
+
     
     </form>
  
