@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { auth } from './firebase.config';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+// import { auth } from './firebase.config';
+// import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 
 function App() {
 
