@@ -14,7 +14,7 @@ const [code, setCode] = useState("123456")
 // const [visible, setVisible] = useState(true)
 // for the moment, i am going to try to let the user confirm the number and send the verification code to the number 
 
-const [wait, setWait] = useState(false)
+const [wait, setWait] = useState(true)
 
 
 
